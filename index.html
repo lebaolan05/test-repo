@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Card Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Name Card Generator</h1>
+
+    <input type="text" id="name" placeholder="Enter Name">
+    <input type="text" id="title" placeholder="Enter Job Title">
+    <input type="email" id="email" placeholder="Enter Email">
+    <input type="text" id="phone" placeholder="Enter Phone Number">
+
+    <button onclick="generateCard()">Generate</button>
+
+    <div class="card" id="card">
+        <h2 id="cardName">Your Name</h2>
+        <p id="cardTitle">Your Title</p>
+        <p id="cardEmail">your@email.com</p>
+        <p id="cardPhone">0123456789</p>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
