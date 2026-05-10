@@ -10,7 +10,7 @@ $activePage = 'about';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | SocialNet</title>
+    <title>About |</title>
     <link rel="stylesheet" href="/socialnet/includes/style.css">
 </head>
 <body>
@@ -58,13 +58,11 @@ $activePage = 'about';
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
             <div>
                 <div style="font-family:var(--font-head);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem">Student Name</div>
-                <!-- ✏️  REPLACE with your actual name -->
-                <div style="font-family:var(--font-head);font-size:1.15rem;font-weight:800">Your Full Name</div>
+                <div style="font-family:var(--font-head);font-size:1.15rem;font-weight:800">Le Bao Lan</div>
             </div>
             <div>
                 <div style="font-family:var(--font-head);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem">Student Number</div>
-                <!-- ✏️  REPLACE with your actual student ID -->
-                <div style="font-family:var(--font-head);font-size:1.15rem;font-weight:800">XXXXXXXX</div>
+                <div style="font-family:var(--font-head);font-size:1.15rem;font-weight:800">1695462</div>
             </div>
         </div>
     </div>
