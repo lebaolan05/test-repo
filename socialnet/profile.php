@@ -21,7 +21,7 @@ if ($ownerUsername !== '') {
     }
 } else {
     // Default to logged-in user
-    $stmt = $db->prepare('SELECT id, username, fullname, description FROM account WHERE id = ?');
+    $stmt = $db->prepare('SELECT id, username, fullname, description FROM account WAHERE id = ?');
     $stmt->execute([$me['id']]);
     $owner = $stmt->fetch();
 }
@@ -52,7 +52,7 @@ $activePage  = 'profile';
         <!-- Profile header -->
         <div class="profile-header">
             <div class="profile-avatar-lg">
-                <?= strtoupper(mb_substr($owner['fullname'], 0, 1)) ?>
+                <?= strtoupper(substr($owner['fullname'], 0, 1)) ?>
             </div>
             <div class="profile-meta">
                 <div class="fullname"><?= htmlspecialchars($owner['fullname']) ?></div>
