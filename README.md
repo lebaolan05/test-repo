@@ -1,7 +1,3 @@
-# SocialNet — PHP Social Network Application
-
-A social network web application built with **PHP**, **MySQL**, **Nginx**, and **Linux**.
-
 ## Project Structure
 
 ```
@@ -30,9 +26,9 @@ socialnet-app/
 
 | Page       | URL                        | Description                                      |
 |------------|----------------------------|--------------------------------------------------|
-| Admin      | `/admin/newuser.php`       | Create new user accounts                         |
+| Admin      | `/admin/newuser.php`       | Add new user accounts                         |
 | Sign In    | `/socialnet/signin.php`    | Login page                                       |
-| Home       | `/socialnet/index.php`     | User info + list of other users                  |
+| Home       | `/socialnet/index.php`     | Home + list of other users                  |
 | Setting    | `/socialnet/setting.php`   | Edit profile description                         |
 | Profile    | `/socialnet/profile.php`   | View own or another user's profile (`?owner=xyz`)|
 | About      | `/socialnet/about.php`     | Static page with student name & number           |
@@ -98,22 +94,6 @@ Edit `socialnet/about.php` and replace:
 - `Your Full Name` → your actual name
 - `XXXXXXXX` → your actual student number
 
-### 8. Create your first user
+### 8. Create first user
 
 Visit: `http://localhost/admin/newuser.php`
-
----
-
-## Tech Stack
-
-- **PHP** 8.2 — backend logic, session management, PDO database access
-- **MySQL** — `socialnet` database, `account` table
-- **Nginx** — web server & request routing
-- **Linux** (Ubuntu/Debian) — operating system
-
-## Security Notes
-
-- Passwords are hashed with `password_hash()` using `PASSWORD_BCRYPT`
-- All user input is sanitized with `htmlspecialchars()` before output
-- Database queries use PDO prepared statements to prevent SQL injection
-- Sessions are regenerated on login to prevent session fixation

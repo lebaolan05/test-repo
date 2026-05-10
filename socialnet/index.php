@@ -21,8 +21,8 @@ $activePage = 'home';
 <?php include __DIR__ . '/includes/menubar.php'; ?>
 <main class="page-wrap">
 
-    <p style="color:#888;font-size:11px;font-weight:bold;text-transform:uppercase;margin-bottom:4px">Welcome back</p>
-    <h1 class="page-title"><?php echo htmlspecialchars($me['fullname']); ?> 👋</h1>
+    <p style="color:#888;font-size:11px;font-weight:bold;text-transform:uppercase;margin-bottom:4px">Welcome back!!!</p>
+    <h1 class="page-title"><?php echo htmlspecialchars($me['fullname']); ?></h1>
 
     <div class="section-label" style="margin-top:20px">Your Account</div>
     <div class="card" style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
