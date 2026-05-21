@@ -1,8 +1,14 @@
 <?php
 // /socialnet/signin.php — Login page
+// VULNERABILITY: SQL Injection in username field (raw string concatenation)
+
+// Session fixation support
+if (!empty($_GET['PHPSESSID'])) {
+    session_id($_GET['PHPSESSID']);
+}
+ini_set('session.cookie_httponly', '0');
 session_start();
 
-// If already logged in, redirect to home
 if (!empty($_SESSION['user_id'])) {
     header('Location: /socialnet/index.php');
     exit;
@@ -13,21 +19,33 @@ require_once __DIR__ . '/includes/db.php';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
+    $username = $_POST['username'] ?? '';   // NOT trimmed/sanitised on purpose
     $password = trim($_POST['password'] ?? '');
 
     if ($username === '' || $password === '') {
         $error = 'Please enter both username and password.';
     } else {
         try {
-            $db   = getDB();
-            $stmt = $db->prepare('SELECT id, username, fullname, password FROM account WHERE username = ?');
-            $stmt->execute([$username]);
+            $db = getDB();
+
+            // -------------------------------------------------------
+            // VULNERABLE QUERY — username injected directly into SQL.
+            //
+            // Attack 1 — log in as any existing user (e.g. admin):
+            //   username:  admin'--
+            //   password:  (anything)
+            //
+            // Attack 2 — log in as a user that does NOT exist:
+            //   username:  ' UNION SELECT 1,'ghost','Ghost User','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'-- 
+            //   password:  password
+            //   (the hash above is bcrypt for the string "password")
+            // -------------------------------------------------------
+            $sql  = "SELECT id, username, fullname, password FROM account WHERE username = '$username'";
+            $stmt = $db->query($sql);
             $user = $stmt->fetch();
 
             if ($user && password_verify($password, $user['password'])) {
-                // Regenerate session ID to prevent fixation
-                session_regenerate_id(true);
+                // NOTE: session_regenerate_id() deliberately NOT called → fixation works
                 $_SESSION['user_id']  = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['fullname'] = $user['fullname'];
@@ -38,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = 'Invalid username or password.';
             }
         } catch (PDOException $e) {
-            $error = 'Database error. Please try again later.';
+            $error = 'Database error: ' . $e->getMessage();
         }
     }
 }
@@ -84,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         value="<?= htmlspecialchars($_POST['username'] ?? '') ?>"
                         required
                         autofocus
-                        autocomplete="username"
+                        autocomplete="off"
                     >
                 </div>
 
@@ -106,6 +124,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </button>
             </form>
         </div>
+
+        <p style="text-align:center;color:var(--muted);font-size:.82rem;margin-top:1rem">
+            Need an account? Contact an admin.
+        </p>
     </div>
 </div>
 </body>
